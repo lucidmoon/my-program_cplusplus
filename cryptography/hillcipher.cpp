@@ -96,7 +96,7 @@ std::string transform(const std::string& text, const Matrix& matrix, bool pad) {
 	const std::size_t blockSize = matrix.size();
 	// Encryption pads incomplete blocks with X; decryption preserves that padding.
 	if (pad) {
-		while (input.size() % blockSize != 0) input += 'X';
+		while (input.size() % blockSize != 0) input += 'X'; //padding X
 	} else if (input.size() % blockSize != 0) {
 		throw std::invalid_argument("Ciphertext length must be a multiple of key size");
 	}
@@ -123,7 +123,9 @@ std::string decrypt(const std::string& ciphertext, const Matrix& key) {
 
 int main() {
 	// Example invertible 3x3 key; the result for ACT is POH.
-	const Matrix key = {{6, 24, 1}, {13, 16, 10}, {20, 17, 15}};
+	const Matrix key = {{6, 24, 1}, 
+						{13, 16, 10}, 
+						{20, 17, 15}};
 	try {
 		const std::string ciphertext = encrypt(plaintext, key);
 		std::cout << "Plaintext:  " << plaintext << '\n'
